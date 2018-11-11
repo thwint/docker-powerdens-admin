@@ -1,0 +1,34 @@
+version: '2.1'
+services:
+  pdnsa:
+    image: pdnsa
+    container_name: pdnsa
+    hostname: pdnsa
+    environment:
+      DB_NAME: powerdnsadmin
+      DB_USER: powerdnsuser
+      DB_HOST: pdnsa.db
+      DB_PASSWORD: dbuserpassword
+      DB_TYPE: mysql
+      PORT: 9191
+      ENVIRONMENT: production
+    ports:
+      - "9191:9191"
+    networks:
+      - default
+
+  pdnsa.db:
+    image: mariadb
+    container_name: pdnsa.db
+    hostname: pdnsa.db
+    environment:
+      MYSQL_ROOT_PASSWORD: dbadminpassword
+      MYSQL_DATABASE: powerdnsadmin
+      MYSQL_USER: powerdnsuser
+      MYSQL_PASSWORD: dbuserpassword
+    networks:
+      - default
+
+networks:
+  default:
+
