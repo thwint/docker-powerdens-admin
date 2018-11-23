@@ -1,8 +1,23 @@
 #!/bin/sh
 
-files=$(/app/app/static/generated/*)
-if [ ${#files[@]} -eq 0 ]; then 
+if [ -n "$(/opt/PowerDNS-Admin/app/static/generated)" ]
+then
   echo Building assets
   flask assets build
 fi
-python3 /app/run.py
+
+function waitAndInitMySql {
+    while ! mysqladmin ping --host=${DB_HOST} --user=${DB_USER} --port=${DB_PORT} --password=${DB_PASSWORD} --silent; do
+        sleep 1
+    done
+
+    DB_CMD="mysql --host=${DB_HOST} --user=${DB_USER} --port=${DB_PORT} --password=${DB_PASSWORD} --silent"
+
+    if [ "$(echo "SELECT COUNT(*) FROM information_schema.tables WHERE table_schema = \"${DB_NAME}\";" | ${DB_CMD})" -le 1 ]; then
+        echo Database is empty. Initializing database ...
+        flask db upgrade
+    fi
+
+}
+
+uwsgi --ini /etc/uwsgi/conf.d/pdnsa.ini
