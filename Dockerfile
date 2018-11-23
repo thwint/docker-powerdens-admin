@@ -27,7 +27,8 @@ COPY pdnsa.ini /etc/uwsgi/conf.d
 WORKDIR /opt/PowerDNS-Admin
 
 RUN pip install -r /opt/PowerDNS-Admin/requirements.txt && \
-    yarn install --pure-lockfilemkdir -p /opt/PowerDNS-Admin/app/static/.webassets-cache /opt/PowerDNS-Admin/app/static/generated /opt/PowerDNS-Admin/logs && \
+    yarn install --pure-lockfile && \
+    mkdir -p /opt/PowerDNS-Admin/app/static/.webassets-cache /opt/PowerDNS-Admin/app/static/generated /opt/PowerDNS-Admin/logs && \
     mkdir -p /run/uwsgi && \
     chown -R uwsgi:uwsgi /run/uwsgi /opt/PowerDNS-Admin && \
     chmod +x /start.sh && \
