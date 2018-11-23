@@ -18,15 +18,16 @@ RUN apk add --no-cache \
     rm -rf /var/cache/apk/* && \
     unzip -d /opt /opt/*.zip && \
     rm /opt/master.zip  && \
-    mv /opt/* /opt/PowerDNS-Admin && \
-    pip install -r /opt/PowerDNS-Admin/requirements.txt && \
-    yarn install --pure-lockfile
+    mv /opt/* /opt/PowerDNS-Admin
 
 COPY start.sh /
 COPY config.py /opt/PowerDNS-Admin
 COPY pdnsa.ini /etc/uwsgi/conf.d
 
-RUN mkdir -p /opt/PowerDNS-Admin/app/static/.webassets-cache /opt/PowerDNS-Admin/app/static/generated /opt/PowerDNS-Admin/logs && \
+WORKDIR /opt/PowerDNS-Admin
+
+RUN pip install -r /opt/PowerDNS-Admin/requirements.txt && \
+    yarn install --pure-lockfilemkdir -p /opt/PowerDNS-Admin/app/static/.webassets-cache /opt/PowerDNS-Admin/app/static/generated /opt/PowerDNS-Admin/logs && \
     mkdir -p /run/uwsgi && \
     chown -R uwsgi:uwsgi /run/uwsgi /opt/PowerDNS-Admin && \
     chmod +x /start.sh && \
