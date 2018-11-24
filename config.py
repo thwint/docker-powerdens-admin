@@ -6,7 +6,7 @@ WTF_CSRF_ENABLED = True
 SECRET_KEY = 'changeme'
 LOG_LEVEL = 'ERROR'
 LOG_FILE = 'logs/pdnsa.log'
-PORT = os.environ.get('PORT')
+PORT = 9191
 BIND_ADDRESS = '0.0.0.0'
 
 # TIMEOUT - for large zones

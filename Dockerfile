@@ -10,7 +10,7 @@ ENV FLASK_APP=/opt/PowerDNS-Admin/app/__init__.py
 ADD https://github.com/ngoduykhanh/PowerDNS-Admin/archive/master.zip /opt/
 
 RUN apk add --no-cache \
-    python3 python3-dev uwsgi uwsgi-python3 uwsgi\
+    python3 python3-dev uwsgi uwsgi-python3 uwsgi mysql-client \
     nodejs yarn build-base pkgconfig libffi-dev openldap-dev \
     mariadb-dev postgresql-dev xmlsec-dev libxslt-dev && \
     python3 -m ensurepip && \

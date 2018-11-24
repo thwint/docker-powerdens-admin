@@ -10,7 +10,6 @@ services:
       DB_HOST: pdnsa.db
       DB_PASSWORD: dbuserpassword
       DB_TYPE: mysql
-      PORT: 9191
       ENVIRONMENT: production
     ports:
       - "9191:9191"

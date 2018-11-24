@@ -1,6 +1,6 @@
 #!/bin/sh
 
-if [ -n "$(/opt/PowerDNS-Admin/app/static/generated)" ]
+if [ -n "/opt/PowerDNS-Admin/app/static/generated" ]
 then
   echo Building assets
   flask assets build
@@ -19,5 +19,9 @@ function waitAndInitMySql {
     fi
 
 }
+# traps to properly shutdown powerdns
+trap "echo q > /run/uwsgi/uwsgi.fifo" SIGHUP SIGINT SIGTERM
+
+waitAndInitMySql
 
 uwsgi --ini /etc/uwsgi/conf.d/pdnsa.ini
