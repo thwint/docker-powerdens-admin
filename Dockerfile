@@ -20,7 +20,7 @@ RUN apk add --no-cache \
     rm /opt/master.zip  && \
     mv /opt/* /opt/PowerDNS-Admin
 
-COPY start.sh /
+COPY *.sh /
 COPY config.py /opt/PowerDNS-Admin
 COPY pdnsa.ini /etc/uwsgi/conf.d
 
@@ -37,6 +37,6 @@ RUN pip install -r /opt/PowerDNS-Admin/requirements.txt && \
 USER uwsgi
 
 EXPOSE 9191
-#HEALTHCHECK --interval=1m CMD /healthcheck.sh || exit 1
+HEALTHCHECK --interval=1m CMD /healthcheck.sh || exit 1
 
 CMD ["/start.sh"]
