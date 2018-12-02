@@ -31,7 +31,7 @@ RUN pip install -r /opt/PowerDNS-Admin/requirements.txt && \
     mkdir -p /opt/PowerDNS-Admin/app/static/.webassets-cache /opt/PowerDNS-Admin/app/static/generated /opt/PowerDNS-Admin/logs && \
     mkdir -p /run/uwsgi && \
     chown -R uwsgi:uwsgi /run/uwsgi /opt/PowerDNS-Admin && \
-    chmod +x /start.sh && \
+    chmod +x /*.sh && \
     chown uwsgi:uwsgi /etc/uwsgi/conf.d/pdnsa.ini
 
 USER uwsgi
