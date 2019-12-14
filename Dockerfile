@@ -38,6 +38,8 @@ RUN pip install -r /opt/PowerDNS-Admin/requirements.txt && \
 
 USER uwsgi
 
+ENV FLASK_APP=powerdnsadmin/__init__.py
+
 EXPOSE 9191
 HEALTHCHECK --interval=1m CMD /healthcheck.sh || exit 1
 
